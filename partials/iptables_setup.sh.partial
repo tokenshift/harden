@@ -39,8 +39,9 @@ iptables -A INPUT -j DROP
 
 echo "iptables: Persisting rules"
 iptables-save > /etc/iptables.rules
-cat > /etc/network/if-pre-up.d/iptables.load <<EOM
+cat > /etc/network/if-pre-up.d/iptablesload <<EOM
 #!/bin/sh
 iptables-restore < /etc/iptables.rules
 exit 0
 EOM
+chmod +x /etc/network/if-pre-up.d/iptablesload
