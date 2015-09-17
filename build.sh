@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 BUILD_DIR="build"
 
@@ -14,6 +14,7 @@ for template in templates/*; do
 	output_file="$BUILD_DIR/harden_`basename $template`"
 	echo "Rendering $template => $output_file"
 	render "$template" > $output_file
+	chmod +x $output_file
 done
 
 popd > /dev/null
