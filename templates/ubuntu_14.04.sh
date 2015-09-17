@@ -1,7 +1,6 @@
-include(partials/apt_upgrade_software.sh)
+`render partials/apt_upgrade_software.sh`
 
-include(partials/apt_upgrade_kernel.sh)
+`render partials/apt_upgrade_kernel.sh`
 
-define(APT_INSTALL_LIST, iptables)dnl
-include(partials/apt_install.sh)
-include(partials/iptables_setup.sh)
+`APT_INSTALL_LIST=iptables render partials/apt_install.sh`
+`render partials/iptables_setup.sh`
