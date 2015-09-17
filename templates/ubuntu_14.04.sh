@@ -9,3 +9,5 @@ SSH_PORT=54322
 
 `render partials/ssh_set_port.sh`
 `render partials/ssh_disable_password_auth.sh`
+
+`cat partials/user_add_multiple.sh`
