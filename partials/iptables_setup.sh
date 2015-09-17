@@ -4,8 +4,13 @@ iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 echo "iptables: Accepting all loopback traffic"
 iptables -A INPUT -i lo -j ACCEPT
 
-echo "iptables: Opening port 22 for SSH"
-iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+if [ -z "$SSH_PORT" ]; then
+	echo "iptables: Opening port 22 for SSH"
+	iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+else
+	echo "iptables: Opening port $SSH_PORT for SSH"
+	iptables -A INPUT -p tcp --dport $SSH_PORT -j ACCEPT
+fi
 
 echo -n "iptables: Open port 80 (HTTP)? [Y/n] "
 read answer
