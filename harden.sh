@@ -1,10 +1,5 @@
 #!/bin/bash
 
-if ! type "m4" &> /dev/null; then
-	>&2 echo "Missing M4"
-	exit 1
-fi
-
 if [ ! -e /etc/lsb-release ]; then
 	>&2 echo "Failed to identify current OS."
 	exit 1
@@ -22,12 +17,12 @@ if [ -z "$DISTRIB_RELEASE" ]; then
 	exit 1
 fi
 
-template="./templates/${DISTRIB_ID,,}/$DISTRIB_RELEASE/template.sh.m4"
-
-if [ -e "$template" ]; then
+script="build/harden_${DISTRIB_ID,,}_$DISTRIB_RELEASE.sh"
+if [ -e "$script" ]; then
+	/bin/bash "$script"
 	m4 "$template" > /tmp/harden.sh
 	/bin/bash /tmp/harden.sh
 else
-	>&2 echo "No script template for $template."
+	>&2 echo "No hardening script found for $DISTRIB_ID $DISTRIB_RELEASE"
 	exit 1
 fi
